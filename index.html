@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet"  href="bower_components/leaflet/dist/leaflet.css"/>
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+    <script>
+        $(function(){
+            "use strict";
+
+            var map = L.map('map', {
+                worldCopyJump : true
+            }).setView([51.505, -179.0], 5);
+            var layer = new L.StamenTileLayer("toner");
+            map.addLayer(layer);
+            map.on('click', function(evt){
+                console.log(evt.latlng);
+            });
+
+            var latlngs = [
+                L.latLng(33, 137),
+                L.latLng(33, 248),
+                L.latLng(49, 248),
+                L.latLng(49, 137),
+                L.latLng(33, 137)
+            ];
+
+            var  pLayer = L.polygon(latlngs, {
+            });
+            map.addLayer(pLayer);
+
+            // Hacky Work around to disappearing
+            var rLayer = L.polygon(rLatLngs, {
+            });
+            map.addLayer(rLayer);
+            var x2 = 137-360;
+            var x = 248-360;
+            var rLatLngs = [
+                L.latLng(33, x2),
+                L.latLng(33, x),
+                L.latLng(49, x),
+                L.latLng(49, x2),
+                L.latLng(33, x2)
+            ];
+
+//            L.geoJson({
+//                type: 'Feature',
+//                geometry: {
+//                    type: 'LineString',
+//                    // The coordinate -233.9 is technically invalid but Leaflet
+//                    // permits it because it can imply the direction of wrapping -
+//                    // to wrap in a direction, you can add or subtract 360 from
+//                    // the desired end coordinate.
+//                    coordinates: [[-77, 37.9], [-233.9, 36.5]]
+//                },
+//                properties: {
+//                    "stroke": "#ff8888",
+//                    "stroke-opacity": 1,
+//                    "stroke-width": 4
+//                }
+//            }).addTo(map);
+
+
+        });
+    </script>
+</body>
+</html>
